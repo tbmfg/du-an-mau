@@ -15,4 +15,8 @@ class Category extends Model
     //            ->orderBy('name')
     //            ->take(10)
     //            ->get();
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product');
+    }
 }

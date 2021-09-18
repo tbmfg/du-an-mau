@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('admin.layouts.index')
 
 @section('title', 'Trang chủ')
 <link href="{{ asset('public/app.css') }}" rel="stylesheet">
@@ -10,30 +10,20 @@
 
 @section('content')
     <br />
-    <h3>Danh sách sản phẩm</h3>
+    <h3>Danh mục</h3>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Danh mục</th>
-                <th scope="col">Tên</th>
-                <th scope="col">Giá</th>
-                <th scope="col">Hình ảnh</th>
-                <th scope="col">Ngày tạo</th>
-                <th scope="col">Mô tả</th>
-                <th scope="col"></th>
+                <th scope="col-2">#</th>
+                <th scope="col-6">Tên</th>
+                <th scope="col-4"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($products as $cate)
+            @foreach ($categories as $cate)
                 <tr>
                     <th scope="row">{{ $cate->id }}</th>
-                    <td>{{ $cate->category_id }}</td>
                     <td>{{ $cate->name }}</td>
-                    <td>{{ $cate->price }}</td>
-                    <td><img src="{{ $cate->image }}" width="50" /></td>
-                    <td>{{ $cate->createdDate }}</td>
-                    <td>{{ $cate->description }}</td>
                     <td>
                         <div>
                             <a href="{{ $cate->id }}" class="btn btn-outline-warning">Edit</a>

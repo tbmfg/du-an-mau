@@ -19,13 +19,12 @@
             display: flex;
         }
 
-    </style>
-    {{-- @section('css')
-        {{ Html::style('/public/app.css') }}
-        {{ Html::style('public/app.css') }}
-        {{ Html::style('css/app.css') }}
-    @show --}}
+        .main-layout {
+            max-height: 100vh;
+            overflow: auto;
+        }
 
+    </style>
     @yield('customCss')
 
 </head>
@@ -33,8 +32,8 @@
 <body>
     <main style="">
         @section('sidebar')
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; height: 100vh">
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 250px; height: 100vh">
+                <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <svg class="bi me-2" width="40" height="32">
                         <use xlink:href="#bootstrap"></use>
                     </svg>
@@ -43,7 +42,7 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/admin" class="nav-link text-white {{ request()->is('admin') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#speedometer2"></use>
                             </svg>
@@ -51,7 +50,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/categories" class="nav-link text-white active">
+                        <a href="/admin/categories"
+                            class="nav-link text-white {{ request()->is('admin/categories') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#table"></use>
                             </svg>
@@ -59,7 +59,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/products" class="nav-link text-white">
+                        <a href="/admin/products"
+                            class="nav-link text-white {{ request()->is('admin/products') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                             </svg>
@@ -67,7 +68,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/admin/customers"
+                            class="nav-link text-white {{ request()->is('admin/customers') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#people-circle"></use>
                             </svg>
@@ -77,7 +79,7 @@
                 </ul>
                 <hr>
                 <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    <a href="#admin/" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                         <strong>mdo</strong>
@@ -94,7 +96,7 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container main-layout">
                 @yield('content')
             </div>
         </main>
