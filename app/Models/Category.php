@@ -11,10 +11,6 @@ class Category extends Model
     protected $keyType = 'int';
     const CREATED_AT = 'createdAt';
 
-    // $categories = Category::where('active', 1)
-    //            ->orderBy('name')
-    //            ->take(10)
-    //            ->get();
     public function products()
     {
         return $this->hasMany('App\Models\Product');

@@ -1,15 +1,11 @@
 @extends('sites.layouts.index')
 
 @section('title', 'Trang chủ')
-<link href="{{ asset('public/app.css') }}" rel="stylesheet">
-<link href="{{ asset('public/app.css') }}" rel="stylesheet">
-<link href="{{ asset('public/sidebar.css') }}" rel="stylesheet">
-<link href="css/app.css" rel="stylesheet">
-<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+
 @section('css')
 
 @section('content')
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleCaptions" class="carousel slide d-none" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                 aria-current="true" aria-label="Slide 1"></button>

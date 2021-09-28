@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use Hash;
-// use Session;
+use Hash;
+use Session;
 use App\Models\User;
-use Illuminate\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -25,25 +23,26 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         $data = $request->only('email', 'password');
-        // return User::create([
-        //     'name' => "admin",
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password'])
-        // ]);
         $credentials = $request->only('email', 'password');
-        // return redirect('/')->withSuccess('Signed in');
-        // dd($credentials);
         if (Auth::attempt($credentials)) {
-            // dd($credentials);
-            return redirect('/')->withSuccess('Signed in');
-            return redirect('homepage')->intended('homepage')
-                ->withSuccess('Signed in');
+            return redirect('/')->withSuccess('Đăng nhập thành công!');
         }
 
         return redirect("signin")->with('message', 'Sai email hoặc mật khẩu!');
     }
 
+    public function signinAPI(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        $credentials = $request->only('email', 'password');
+        Auth::attempt($credentials);
+        $user = Auth::user();
 
+        return $user;
+    }
 
     public function signup()
     {
@@ -56,13 +55,29 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'password' => 'min:6|required_with:confirm_password|same:confirm_password',
+            'confirm_password' => 'required|min:6',
+        ]);
+
+        $data = $request->all();
+        $data['role'] = 'guest';
+        $this->create($data);
+        return redirect("/")->withSuccess('Tạo tài khoản và đăng nhập thành công!');
+    }
+
+    public function signupAPI(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
 
         $data = $request->all();
-        $check = $this->create($data);
+        return $data;
+        $res = $this->create($data);
 
-        return redirect("/")->withSuccess('You have signed-in');
+        return $res;
     }
 
 
@@ -91,6 +106,6 @@ class AuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return Redirect('signin');
+        return Redirect('')->withSuccess('Đăng xuất thành công!');
     }
 }

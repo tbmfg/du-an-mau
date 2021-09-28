@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -17,9 +18,28 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $products = Product::all();
 
-        return view('admin.products', ['products' => $products]);
+        return view('admin.products', [
+            'products' => $products,
+            'user' => $user,
+            'title' => "Quản lý sản phẩm"
+        ]);
+    }
+
+    public function list()
+    {
+        $products = Product::all();
+
+        return $products;
+    }
+
+    public function detail($id)
+    {
+        $product = Product::find($id);
+
+        return $product;
     }
 
     /**

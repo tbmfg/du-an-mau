@@ -70,7 +70,7 @@
             margin-bottom: -1px;
         }
 
-        .form-signin input[name="re-password"] {
+        .form-signin input[name="confirm_password"] {
             margin-bottom: 10px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
@@ -82,38 +82,48 @@
 <body class="text-center">
 
     <main class="form-signin">
-        <form action="{{ route('signin.submit') }}" method="post">
+        <form action="{{ route('signup.submit') }}" method="post">
             @csrf
             <h1 class="display-1 mb-5">X-Shop</h1>
             <h1 class="h3 mb-3 fw-normal">Đăng ký</h1>
+            <p>{{ csrf_token() }}</p>
             <div class="mb-3">
                 <a class="link-primary text-decoration-none" href="/signin">Đăng nhập</a>
             </div>
 
             <div class="form-floating">
-                <input type="email" name="email" class="form-control" id="floatingInput"
+                <input name="name" class="form-control" id="nameInput"
+                    placeholder="">
+                <label for="nameInput">Name</label>
+            </div>
+            @if ($errors->has('name'))
+                <span class="text-danger">{{ $errors->first('name') }}</span>
+            @endif
+
+            <div class="form-floating">
+                <input type="email" name="email" class="form-control" id="emailInput"
                     placeholder="name@example.com">
-                <label for="floatingInput">Email</label>
+                <label for="emailInput">Email</label>
             </div>
             @if ($errors->has('email'))
                 <span class="text-danger">{{ $errors->first('email') }}</span>
             @endif
             <div class="form-floating">
-                <input type="password" name="password" class="form-control" id="floatingPassword"
+                <input type="password" name="password" class="form-control" id="passwordInput"
                     placeholder="*******">
-                <label for="floatingPassword">Mật khẩu</label>
+                <label for="passwordInput">Mật khẩu</label>
             </div>
             @if ($errors->has('password'))
                 <span class="text-danger">{{ $errors->first('password') }}</span>
             @endif
             <div class="form-floating">
-                <input type="password" name="re-password" class="form-control" id="floatingPassword"
+                <input type="password" name="confirm_password" class="form-control" id="confirmPasswordInput"
                     placeholder="*******">
-                <label for="floatingPassword">Nhập lại mật khẩu</label>
+                <label for="confirmPasswordInput">Nhập lại mật khẩu</label>
             </div>
-            @if ($errors->has('re-password'))
-                <span class="text-danger">{{ $errors->first('re-password') }}</span>
-            @endif  
+            @if ($errors->has('confirm_password'))
+                <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
+            @endif
             <button class="w-100 btn btn-lg btn-primary" type="submit">Tạo tài khoản</button>
             <a class="w-100 btn btn-lg btn-default" type="button" href="/">Hủy</a>
             <p class=" mt-5 mb-3 text-muted">&copy; 2017–2021</p>

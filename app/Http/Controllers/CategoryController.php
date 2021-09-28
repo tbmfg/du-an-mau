@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -14,9 +16,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')->get();
+        $user = Auth::user();
+        $categories = Category::all();
 
-        return view('admin.categories', ['categories' => $categories]);
+        return view('admin.categories', [
+            'categories' => $categories,
+            'user' => $user,
+            'title' => 'Quản lý danh mục',
+        ]);
     }
     /**
      * Show the form for creating a new resource.

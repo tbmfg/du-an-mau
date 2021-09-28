@@ -17,18 +17,25 @@
                     <a class="text-decoration-none" href="/products">Tất cả sản phẩm</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <a class="text-decoration-none text-muted" href="/categories/{{ $product->category->id }}">{{ $product->category->name }}</a>
+                    <a class="text-decoration-none" href="/categories/{{ $product->category->id }}">
+                        {{ $product->category->name }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a class="text-decoration-none text-muted">
+                        {{ $product->name }}
+                    </a>
                 </li>
             </ol>
         </nav>
         <div class="py-2"></div>
         <div class="row">
             <div class="col-9">
-                <div class="row mb-5">
+                <div class="row mb-5 py-4 border rounded">
                     <div class="col-4">
                         <img src="{{ $product->image }}" width="100%" />
                     </div>
-                    <div class="col-7">
+                    <div class="col-7 border rounded p-3">
                         <div>
                             <h4 class="mb-4">{{ $product->name }}</h4>
                             <h5 class="text-danger">{{ number_format($product->price) }} đ</h5>
@@ -38,36 +45,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="row border py-3 rounded col-12">
-                        <div class="mb-1">
-                            <strong>Tiến: </strong>Sản phẩm này rất tốt
-                            <small class="text-muted"> - 16/09/2021</small>
-                        </div>
-                        <hr class="my-2" />
-                        <div class="mb-1">
-                            <strong>Phuong Linh: </strong>Sản phẩm này phẩm này rất tốt
-                            <small class="text-muted"> - 16/09/2021</small>
-                        </div>
-                        <hr class="my-2" />
-                        <div class="mb-1">
-                            <strong>Tiến: </strong>Sản phẩm này rất tốt
-                            <small class="text-muted"> - 16/09/2021</small>
-                        </div>
-                        <hr class="my-2" />
-                        <div class="mb-1">
-                            <strong>Phuong Linh: </strong>Sản phẩm này phẩm này rất tốt
-                            <small class="text-muted"> - 16/09/2021</small>
-                        </div>
-                        <hr class="my-2" />
-                        <div class="mb-1">
-                            <strong>Phuong Linh: </strong>Sản phẩm này phẩm này rất tốt
-                            <small class="text-muted"> - 16/09/2021</small>
-                        </div>
-                        <hr class="my-2" />
-                        <div class="mb-1">
-                            <strong>Phuong Linh: </strong>Sản phẩm này phẩm này rất tốt
-                            <small class="text-muted"> - 16/09/2021</small>
-                        </div>
+                    <div class="border py-3 rounded">
+                        @foreach ($comments as $comment)
+
+                            <div class="mb-1">
+                                <strong>{{ $comment->customer->name }} :</strong>
+                                <span>{{ $comment->content }}</span>
+                                <small class="text-muted">
+                                    - {{ $comment->createdAt }}
+                                </small>
+                            </div>
+                            <hr class="my-2" />
+                        @endforeach
+
                         <div class="row mt-3">
                             <div class="col-9">
                                 <textarea class="form-control" aria-label="With textarea"

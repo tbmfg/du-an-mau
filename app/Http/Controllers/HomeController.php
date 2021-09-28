@@ -2,117 +2,131 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Session;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Product;
+
+class SortData
+{
+    public $sortBy;
+    public $sortDirection;
+}
+
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $user = Auth::user();
+        // return $user;
         $categories = Category::all();
-        $products = Product::paginate(4);
+        $sortData = $this->getOrderProductsData($request);
+        try {
+            $products = Product::orderBy(
+                $sortData->sortBy,
+                $sortData->sortDirection
+            )->paginate(4);
+        } catch (\Throwable $err) {
+            $products = Product::orderBy(
+                'views',
+                $sortData->sortDirection
+            )->paginate(4);
+        }
         return view('sites.index', [
             'categories' => $categories,
             'products' => $products,
+            'user' => $user,
         ]);
     }
 
-    public function categories($id)
+    public function productsCategory($id, Request $request)
     {
         $category = Category::find($id);
         $categories = Category::all();
+        $user = Auth::user();
+        $sortData = $this->getOrderProductsData($request);
+        try {
+            $products = Product::where('category_id', $id)->orderBy(
+                $sortData->sortBy,
+                $sortData->sortDirection
+            )->paginate(2);
+        } catch (\Throwable $err) {
+            $products = Product::where('category_id', $id)
+                ->orderBy(
+                    'views',
+                    $sortData->sortDirection
+                )->paginate(4);
+        }
 
-        return view('sites.categories', [
+        return view('sites.productsCategory', [
             'category' => $category,
             'categories' => $categories,
+            'products' => $products,
+            'user' => $user,
         ]);
     }
 
-    public function products()
+    public function products(Request $request)
     {
-        $products = Product::orderBy('views', 'desc')->paginate(4);
+        $sortData = $this->getOrderProductsData($request);
+        $user = Auth::user();
+        try {
+            $products = Product::orderBy(
+                $sortData->sortBy,
+                $sortData->sortDirection
+            )->paginate(4);
+        } catch (\Throwable $err) {
+            $products = Product::orderBy(
+                'views',
+                $sortData->sortDirection
+            )->paginate(4);
+        }
 
         $categories = Category::all();
 
         return view('sites.products', [
             'products' => $products,
             'categories' => $categories,
+            'user' => $user,
         ]);
     }
 
     public function detailProduct($id)
     {
         $categories = Category::all();
+        $user = Auth::user();
         DB::update('UPDATE Products SET views = views + 1 WHERE id = ?', [$id]);
+        $comments = Comment::where('productId', $id)->orderBy(
+            'createdAt',
+            'desc'
+        )->paginate(2);
 
         $product = Product::find($id);
 
         return view('sites.detailProduct', [
             'categories' => $categories,
             'product' => $product,
+            'comments' => $comments,
+            'user' => $user,
         ]);
     }
 
-    public function create()
+    public function getOrderProductsData(Request $request)
     {
-        //
-    }
+        $sortData = new SortData();
+        $sortBy = $request->sortBy;
+        $sortDirection = $request->sortDirection;
+        if ($sortDirection !== 'desc' && $sortDirection !== 'asc') {
+            $sortDirection = 'desc';
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $sortData->sortBy = $sortBy ? $sortBy : 'views';
+        $sortData->sortDirection = $sortDirection;
+        return $sortData;
     }
 }

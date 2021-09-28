@@ -1,6 +1,6 @@
 @extends('sites.layouts.index')
 
-@section('title', 'Tất cả sản phẩm')
+@section('title', 'Trang chủ')
 
 @section('content')
     <div class="py-2"></div>
@@ -8,8 +8,12 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
+                    <a class="text-decoration-none" href="/products">Tất cả sản phẩm</a>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
                     <a class="text-decoration-none text-muted">
-                        Tất cả sản phẩm
+                        {{ $category->name }}
                     </a>
                 </li>
             </ol>
@@ -39,7 +43,6 @@
                                         <h5 class="card-title">{{ $product->name }}</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">{{ $product->category->name }}</h6>
                                         <p class="card-text">{{ number_format($product->price) }} đ</p>
-                                        {{-- <p class="card-text">{{ $product->views }}</p> --}}
                                     </div>
                                 </div>
                             </a>
