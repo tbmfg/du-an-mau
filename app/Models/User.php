@@ -42,6 +42,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin()
+    {
+        if ($this->role === 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hasRole($role)
+    {
+        if ($this->role === $role) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');

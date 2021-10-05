@@ -7,13 +7,18 @@ use Hash;
 use Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class AuthController extends Controller
 {
 
     public function index()
     {
-        return view('auth.signin');
+        $categories = Category::all();
+        return view(
+            'auth.signin',
+            ['categories' => $categories, 'user' => null]
+        );
     }
 
     public function signin(Request $request)
@@ -46,7 +51,12 @@ class AuthController extends Controller
 
     public function signup()
     {
-        return view('auth.signup');
+        $categories = Category::all();
+
+        return view(
+            'auth.signup',
+            ['categories' => $categories, 'user' => null]
+        );
     }
 
 
@@ -62,7 +72,18 @@ class AuthController extends Controller
         $data = $request->all();
         $data['role'] = 'guest';
         $this->create($data);
-        return redirect("/")->withSuccess('Tạo tài khoản và đăng nhập thành công!');
+        return redirect("/signin")->withSuccess('Tạo tài khoản thành công!');
+    }
+
+    public function changePassword()
+    {
+        $categories = Category::all();
+        $user = Auth::user();
+
+        return view(
+            'auth.changePassword',
+            ['categories' => $categories, 'user' => $user]
+        );
     }
 
     public function signupAPI(Request $request)
@@ -74,7 +95,7 @@ class AuthController extends Controller
         ]);
 
         $data = $request->all();
-        return $data;
+        // return $data;
         $res = $this->create($data);
 
         return $res;

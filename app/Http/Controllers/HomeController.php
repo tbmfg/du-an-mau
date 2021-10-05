@@ -25,7 +25,7 @@ class HomeController extends Controller
         $user = Auth::user();
         // return $user;
         $categories = Category::all();
-        $sortData = $this->getOrderProductsData($request);
+        $sortData = $this->getSortData($request);
         try {
             $products = Product::orderBy(
                 $sortData->sortBy,
@@ -49,7 +49,7 @@ class HomeController extends Controller
         $category = Category::find($id);
         $categories = Category::all();
         $user = Auth::user();
-        $sortData = $this->getOrderProductsData($request);
+        $sortData = $this->getSortData($request);
         try {
             $products = Product::where('category_id', $id)->orderBy(
                 $sortData->sortBy,
@@ -73,7 +73,7 @@ class HomeController extends Controller
 
     public function products(Request $request)
     {
-        $sortData = $this->getOrderProductsData($request);
+        $sortData = $this->getSortData($request);
         $user = Auth::user();
         try {
             $products = Product::orderBy(
@@ -116,7 +116,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getOrderProductsData(Request $request)
+    public function getSortData(Request $request)
     {
         $sortData = new SortData();
         $sortBy = $request->sortBy;

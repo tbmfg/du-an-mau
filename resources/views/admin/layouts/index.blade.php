@@ -13,6 +13,7 @@
     <meta name="theme-color" content="#7952b3">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <style>
         main {
@@ -45,7 +46,21 @@
 </head>
 
 <body>
-    <main style="">
+    <main>
+        @if (Session::has('success'))
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div class="toast show align-items-center text-white bg-primary border-0" role="alert"
+                    aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ Session::get('success') }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        @endif
         <nav class="navbar fixed-top navbar-expand navbar-light bg-light shadow-sm">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -125,7 +140,7 @@
                     </li>
                     <li>
                         <a href="/admin/categories"
-                            class="nav-link px-0 text-white {{ request()->is('admin/categories') ? 'active' : '' }}">
+                            class="nav-link px-0 text-white {{ request()->is('admin/categories', 'admin/categories/create', 'admin/categories/edit') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#table"></use>
                             </svg>
@@ -134,7 +149,7 @@
                     </li>
                     <li>
                         <a href="/admin/products"
-                            class="nav-link px-0 text-white {{ request()->is('admin/products') ? 'active' : '' }}">
+                            class="nav-link px-0 text-white {{ request()->is('admin/products', 'admin/products/create', 'admin/products/edit') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                             </svg>
@@ -183,9 +198,10 @@
         $(function() {
             setTimeout(function() {
                 $('.toast').toast('hide');
-            }, 5000);
+            }, 3000);
         });
     </script>
+
 
 </body>
 

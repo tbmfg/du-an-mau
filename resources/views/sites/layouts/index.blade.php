@@ -21,11 +21,11 @@
 </head>
 
 <body>
-    <main style="">
+    <main>
         @if (Session::has('success'))
             <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                <div class="toast show align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive"
-                    aria-atomic="true">
+                <div class="toast show align-items-center text-white bg-primary border-0" role="alert"
+                    aria-live="assertive" aria-atomic="true">
                     <div class="d-flex">
                         <div class="toast-body">
                             {{ Session::get('success') }}
@@ -93,6 +93,9 @@
                                             <button class="w-100 btn btn-lg btn-primary" type="submit">Đăng
                                                 nhập</button>
                                         </form>
+                                        <a href="/signup" class="btn btn-outline-secondary w-100">
+                                            Đăng ký
+                                        </a>
                                     </div>
                                 @else
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
@@ -105,12 +108,10 @@
                                             <li><a class="dropdown-item" href="/admin/products">Quản trị website</a></li>
                                         @endif
                                         <li><a class="dropdown-item" href="#">Cập nhật tài khoản</a></li>
-                                        <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                                        <li><a class="dropdown-item" href="/change-password">Đổi mật khẩu</a></li>
                                         <li><a class="dropdown-item" href="/signout">Đăng xuất</a></li>
                                     </ul>
                                 @endif
-
-
                             </div>
 
                         </div>
@@ -173,7 +174,7 @@
         $(function() {
             setTimeout(function() {
                 $('.toast').toast('hide');
-            }, 5000);
+            }, 3000);
         });
     </script>
 

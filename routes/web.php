@@ -21,9 +21,12 @@ Route::post('/signup', [AuthController::class, 'signupSubmit'])->name('signup.su
 Route::post('/signout', [AuthController::class, 'signOut']);
 Route::get('/signout', [AuthController::class, 'signOut']);
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+Route::get('/change-password', [AuthController::class, 'changePassword'])->middleware('auth');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
     Route::resources([
         'categories' => CategoryController::class,
         'products' => ProductController::class,
     ]);
+    Route::post('/categories/{id}/update', [CategoryController::class, 'update']);
 });

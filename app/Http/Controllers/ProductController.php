@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+class SortData
+{
+    public $sortBy;
+    public $sortDirection;
+}
+
 class ProductController extends Controller
 {
     /**
@@ -16,12 +22,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $products = Product::all();
 
-        return view('admin.products', [
+        $sortData = $this->getSortData($request);
+        try {
+            $products = Product::orderBy(
+                $sortData->sortBy,
+                $sortData->sortDirection
+            )->paginate(4);
+        } catch (\Throwable $err) {
+            $products = Product::orderBy(
+                'views',
+                $sortData->sortDirection
+            )->paginate(4);
+        }
+
+        return view('admin.products.index', [
             'products' => $products,
             'user' => $user,
             'title' => "Quản lý sản phẩm"
@@ -49,7 +67,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        return view('admin.products.create', [
+            'user' => $user,
+            'title' => 'Tạo sản phẩm',
+        ]);
     }
 
     /**
@@ -73,7 +95,8 @@ class ProductController extends Controller
     { {
             $product = Product::findOrFail($id);
             // $category = Category::all();
-            echo $product->category;
+            return 'show';
+            return $product;
 
             // return view('products', ['products' => $products]);
         }
@@ -110,6 +133,22 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect('/admin/products')->withSuccess('Đã xóa sản phẩm!');
+    }
+
+    public function getSortData(Request $request)
+    {
+        $sortData = new SortData();
+        $sortBy = $request->sortBy;
+        $sortDirection = $request->sortDirection;
+        if ($sortDirection !== 'desc' && $sortDirection !== 'asc') {
+            $sortDirection = 'desc';
+        }
+
+        $sortData->sortBy = $sortBy ? $sortBy : 'views';
+        $sortData->sortDirection = $sortDirection;
+        return $sortData;
     }
 }

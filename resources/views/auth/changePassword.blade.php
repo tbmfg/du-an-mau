@@ -7,30 +7,36 @@
         <div class="col-9">
             <form action="{{ route('signin.submit') }}" method="post" class="col-10 m-auto">
                 @csrf
-                <h1 class="h3 mb-3 fw-normal">Đăng nhập</h1>
+                <h1 class="h3 mb-3 fw-normal">Đổi mật khẩu</h1>
                 <div class="mb-3">
                     <a class="link-primary text-decoration-none" href="/signup">Tạo tài khoản</a>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+                    <label for="floatingInput" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        disabled value="{{ $user->email }}">
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Mật khẩu</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="*******">
+                    <label for="floatingPassword" class="form-label">Mật khẩu cũ</label>
+                    <input type="password" name="password" class="form-control" id="floatingPassword"
+                        placeholder="*******">
                 </div>
-
-                <div class="checkbox my-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Lưu đăng nhập
-                    </label>
+                <div class="mb-3">
+                    <label for="floatingNewPassword" class="form-label">Mật khẩu mới</label>
+                    <input type="password" name="new_password" class="form-control" id="floatingNewPassword"
+                        placeholder="*******">
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPasswordInput" class="form-label">Nhập lại mật khẩu mới</label>
+                    <input type="password" name="confirm_password" class="form-control" id="confirmPasswordInput"
+                        placeholder="*******">
                 </div>
                 <div class="mb-3">
                     @if (session()->has('message'))
                         <span class="text-danger">{{ session()->get('message') }}</span>
                     @endif
                 </div>
-                <button class="btn btn-primary" type="submit">Đăng nhập</button>
+                <button class="btn btn-primary" type="submit">Đổi mật khẩu</button>
                 <a class="btn btn-secondary" href="/">Hủy</a>
             </form>
         </div>

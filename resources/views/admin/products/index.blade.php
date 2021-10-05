@@ -9,7 +9,6 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 @section('css')
-
     <style>
         .table-content {
             max-height: calc(100vh - 117px);
@@ -24,19 +23,24 @@
             <button class="btn btn-primary btn-sm me-2">
                 Chọn tất cả
             </button>
-            <button class="btn btn-danger btn-sm position-relative">Xóa
+            <button class="btn btn-primary btn-sm me-2">
+                Bỏ chọn tất cả
+            </button>
+            <button class="btn btn-danger btn-sm me-2 position-relative">Xóa sản phẩm đã chọn<nav></nav>
                 <span
                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary border border-dark">
                     13
                 </span>
             </button>
+            <a class="btn btn-success btn-sm me-2" href="/admin/products/create">
+                Tạo sản phẩm
+            </a>
         </div>
         <div class="table-content">
             <table class="table table-bordered table-sm table-hover align-middle header-fixed">
                 <thead>
                     <tr>
-                        <th scope="col">
-                        </th>
+                        <th scope="col"> </th>
                         <th scope="col">ID <i class="fa fa-fw fa-sort"></i></th>
                         <th scope="col">Hình ảnh</th>
                         <th scope="col">Danh mục</th>
@@ -53,7 +57,7 @@
                             <th scope="row">
                                 <input class="form-check-input" type="checkbox" value="">
                             </th>
-                            <th scope="row">{{ $product->id }}</th>
+                            <td>{{ $product->id }}</td>
                             <td><img src="{{ $product->image }}" width="120px" /></td>
                             <td scope="row text-center">{{ $product->category->name }}</td>
                             <td scope="row">{{ $product->name }}</td>
@@ -64,18 +68,42 @@
                                     <span class="badge bg-success">Có</span>
                                 @endif
                             <td scope="row">
-                                <a class="btn btn-sm btn-secondary" title="Chi tiết">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-info-lg" viewBox="0 0 16 16">
-                                        <path
-                                            d="m10.277 5.433-4.031.505-.145.67.794.145c.516.123.619.309.505.824L6.101 13.68c-.34 1.578.186 2.32 1.423 2.32.959 0 2.072-.443 2.577-1.052l.155-.732c-.35.31-.866.434-1.206.434-.485 0-.66-.34-.536-.939l1.763-8.278zm.122-3.673a1.76 1.76 0 1 1-3.52 0 1.76 1.76 0 0 1 3.52 0z" />
-                                    </svg>
+                                <a href="/admin/products/{{ $product->id }}" class="btn btn-warning">
+                                    Sửa
                                 </a>
+                                <button onclick="openDelete({{ $product->id }}, '{{ $product->name }}')"
+                                    class="btn btn-danger">
+                                    Xóa
+                                </button>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            {{ $products->links() }}
+        </div>
+
+        <div class="modal fade" id="deletePopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="deletePopupLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deletePopupLabel">Xóa sản phẩm?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="popupProductName"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <form action="" method="POST" id="confirmForm">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button type="submit" class="btn btn-danger">Xóa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -83,5 +111,20 @@
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+
+        function openDelete(id, name) {
+            var myModal = new bootstrap.Modal(document.getElementById('deletePopup'), {
+                keyboard: false
+            });
+
+            var confirmForm = document.getElementById('confirmForm');
+            var popupProductName = document.getElementById('popupProductName');
+            // confirmForm.setAttribute("onClick", `confirmDelete(${id})`)
+            confirmForm.action = `/admin/products/${id}`
+            popupProductName.innerHTML = `Bạn có muốn xóa <strong>${name}</strong> không?`
+            myModal.show();
+
+            console.log(id, myModal)
+        }
     </script>
 @stop
