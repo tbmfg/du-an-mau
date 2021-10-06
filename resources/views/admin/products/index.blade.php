@@ -26,7 +26,7 @@
             <button class="btn btn-primary btn-sm me-2">
                 Bỏ chọn tất cả
             </button>
-            <button class="btn btn-danger btn-sm me-2 position-relative">Xóa sản phẩm đã chọn<nav></nav>
+            <button class="btn btn-danger btn-sm me-2 position-relative">Xóa mục đã chọn<nav></nav>
                 <span
                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary border border-dark">
                     13
@@ -68,7 +68,7 @@
                                     <span class="badge bg-success">Có</span>
                                 @endif
                             <td scope="row">
-                                <a href="/admin/products/{{ $product->id }}" class="btn btn-warning">
+                                <a href="/admin/products/{{ $product->id }}/edit" class="btn btn-warning">
                                     Sửa
                                 </a>
                                 <button onclick="openDelete({{ $product->id }}, '{{ $product->name }}')"

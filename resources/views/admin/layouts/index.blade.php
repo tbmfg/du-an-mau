@@ -166,12 +166,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/customers"
-                            class="nav-link px-0 text-white {{ request()->is('admin/customers') ? 'active' : '' }}">
+                        <a href="/admin/users"
+                            class="nav-link px-0 text-white {{ request()->is('admin/users') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#people-circle"></use>
                             </svg>
-                            khách hàng
+                            tài khoản
                         </a>
                     </li>
                 </ul>

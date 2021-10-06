@@ -12,6 +12,17 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
+    protected $fillable = [
+        'name',
+        'price',
+        'saleOff',
+        'category_id',
+        'isSpecial',
+        'createdDate',
+        'views',
+        'description',
+    ];
+    public $timestamps = false;
 
     public function category()
     {

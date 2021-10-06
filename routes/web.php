@@ -4,7 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
@@ -27,6 +27,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::resources([
         'categories' => CategoryController::class,
         'products' => ProductController::class,
+        'users' => UserController::class,
     ]);
     Route::post('/categories/{id}/update', [CategoryController::class, 'update']);
+    Route::post('/products/{id}/update', [ProductController::class, 'update']);
+    Route::post('/users/{id}/update', [UserController::class, 'update']);
 });

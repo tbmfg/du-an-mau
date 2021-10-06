@@ -23,8 +23,8 @@
                     13
                 </span>
             </button>
-            <a class="btn btn-success btn-sm me-2" href="/admin/categories/create">
-                Tạo danh mục
+            <a class="btn btn-success btn-sm me-2" href="/admin/users/create">
+                Tạo tài khoản
             </a>
         </div>
         <div class="table-content">
@@ -34,25 +34,29 @@
                         <th scope="col-1"></th>
                         <th scope="col-2">#</th>
                         <th scope="col-6">Tên</th>
-                        <th scope="col-6">Số lượng sản phẩm</th>
+                        <th scope="col-6">Email</th>
+                        <th scope="col-6">Hình ảnh</th>
+                        <th scope="col-6">Role</th>
                         <th scope="col-4"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
+                    @foreach ($users as $user)
                         <tr>
                             <th scope="row">
                                 <input class="form-check-input" type="checkbox" value="">
                             </th>
-                            <td>{{ $category->id }}</td>
-                            <td>{{ $category->name }}</td>
-                            <td>{{ $category->productCount }}</td>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td><img src="{{$user->image}}" style="border-radius: 50%; width:60px;" /></td>
+                            <td>{{ $user->role }}</td>
                             <td>
                                 <div>
-                                    <a href="/admin/categories/{{ $category->id }}/edit" class="btn btn-warning">
+                                    <a href="/admin/users/{{ $user->id }}/edit" class="btn btn-warning">
                                         Sửa
                                     </a>
-                                    <button onclick="openDelete({{ $category->id }}, '{{ $category->name }}')"
+                                    <button onclick="openDelete({{ $user->id }}, '{{ $user->name }}')"
                                         class="btn btn-danger">
                                         Xóa
                                     </button>
@@ -69,7 +73,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deletePopupLabel">Xóa danh mục?</h5>
+                    <h5 class="modal-title" id="deletePopupLabel">Xóa tài khoản?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -95,7 +99,7 @@
             var confirmForm = document.getElementById('confirmForm');
             var popupProductName = document.getElementById('popupProductName');
 
-            confirmForm.action = `/admin/categories/${id}`
+            confirmForm.action = `/admin/users/${id}`
             popupProductName.innerHTML = `Bạn có muốn xóa <strong>${name}</strong> không?`
             myModal.show();
 
