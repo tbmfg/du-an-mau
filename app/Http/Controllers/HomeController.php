@@ -98,7 +98,7 @@ class HomeController extends Controller
         $user = Auth::user();
         DB::update('UPDATE products SET views = views + 1 WHERE id = ?', [$id]);
         $comments = Comment::where('product_id', $id)->orderBy(
-            'createdAt',
+            'created_at',
             'desc'
         )->paginate(2);
 

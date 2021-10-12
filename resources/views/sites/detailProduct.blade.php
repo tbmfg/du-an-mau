@@ -51,7 +51,7 @@
                                 <strong>{{ $comment->customer->name }} :</strong>
                                 <span>{{ $comment->content }}</span>
                                 <small class="text-muted">
-                                    - {{ $comment->createdAt }}
+                                    - {{ $comment->created_at }}
                                 </small>
                             </div>
                             <hr class="my-2" />
