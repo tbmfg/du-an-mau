@@ -31,7 +31,7 @@
         <div class="py-2"></div>
         <div class="row">
             <div class="col-9">
-                <div class="row mb-5 py-4 border rounded">
+                <div class="row mb-5 py-4 rounded">
                     <div class="col-4">
                         <img src="{{ $product->image }}" width="100%" />
                     </div>
@@ -44,10 +44,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="border py-3 rounded">
+                <div class="row mb-4">
+                    <div class="py-3 rounded">
                         @foreach ($comments as $comment)
-
                             <div class="mb-1">
                                 <strong>{{ $comment->customer->name }} :</strong>
                                 <span>{{ $comment->content }}</span>
@@ -68,6 +67,33 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <h5 class="mb-3">Sản phẩm cùng loại</h5>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+                        @foreach ($productsCategory as $productCategory)
+                            <div class="col">
+                                <a href="/products/{{ $productCategory->id }}" class="text-decoration-none">
+                                    <div class="card text-dark bg-light shadow-sm product-card">
+                                        <div class="card-img-top pt-2">
+                                            <img src="{{ $productCategory->image }}" width="100%" />
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $productCategory->name }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">
+                                                {{ $productCategory->category->name }}</h6>
+                                            <p class="card-text">{{ number_format($productCategory->price) }} đ
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                    <a class="btn btn-primary btn m-auto mt-4"
+                        href="/categories/{{ $productsCategory[0]->category_id }}">
+                        Xem thêm
+                    </a>
                 </div>
             </div>
             <div class="col">

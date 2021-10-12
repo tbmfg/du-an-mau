@@ -18,11 +18,12 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
+        // return $user-.;
         $users = User::all();
         // return $users;
         return view('admin.users.index', [
-            'users' => $users,
             'user' => $user,
+            'users' => $users,
             'title' => 'Quản lý tài khoản',
         ]);
     }
@@ -47,7 +48,7 @@ class UserController extends Controller
             'confirmPassword' => 'required|min:6',
         ]);
         $data = $request->all();
-        // return $data;
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -63,10 +64,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $user = User::find($id);
+        $editUser = User::find($id);
         return view('admin.users.edit', [
             'user' => $user,
-            'user' => $user,
+            'editUser' => $editUser,
             'title' => 'Sửa tài khoản',
         ]);
     }

@@ -115,17 +115,14 @@
                                     <li><a class="dropdown-item" href="/signout">Đăng xuất</a></li>
                                 </ul>
                             @endif
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </nav>
         @section('sidebar')
             <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar">
-                <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="fs-4">X-Shop Admin</span>
                 </a>
                 <hr>
@@ -135,7 +132,7 @@
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#speedometer2"></use>
                             </svg>
-                            tổng quan
+                            thống kê
                         </a>
                     </li>
                     <li>

@@ -23,4 +23,22 @@ class Category extends Model
         $products = Product::where('category_id', '=', $id)->get();
         return count($products);
     }
+
+    public function highestPrice($id)
+    {
+        $products = Product::where('category_id', '=', $id)->orderBy('price', 'desc')->get();
+        return $products[0]->price;
+    }
+
+    public function lowestPrice($id)
+    {
+        $products = Product::where('category_id', '=', $id)->orderBy('price', 'asc')->get();
+        return $products[0]->price;
+    }
+
+    public function averagePrice($id)
+    {
+        return Product::where('category_id', '=', $id)->avg('price');
+        // return $products[0]->price;
+    }
 }

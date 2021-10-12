@@ -17,29 +17,25 @@ class SortData
     public $sortDirection;
 }
 
-
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
         $user = Auth::user();
-        // return $user;
         $categories = Category::all();
-        $sortData = $this->getSortData($request);
-        try {
-            $products = Product::orderBy(
-                $sortData->sortBy,
-                $sortData->sortDirection
-            )->paginate(4);
-        } catch (\Throwable $err) {
-            $products = Product::orderBy(
-                'views',
-                $sortData->sortDirection
-            )->paginate(4);
-        }
+        $mostViewProducts = Product::orderBy(
+            'views',
+            'asc'
+        )->paginate(8);
+        $specialProducts = Product::where(
+            'isSpecial',
+            1
+        )->paginate(4);
+
         return view('sites.index', [
             'categories' => $categories,
-            'products' => $products,
+            'specialProducts' => $specialProducts,
+            'mostViewProducts' => $mostViewProducts,
             'user' => $user,
         ]);
     }
@@ -54,13 +50,13 @@ class HomeController extends Controller
             $products = Product::where('category_id', $id)->orderBy(
                 $sortData->sortBy,
                 $sortData->sortDirection
-            )->paginate(2);
+            )->paginate(8);
         } catch (\Throwable $err) {
             $products = Product::where('category_id', $id)
                 ->orderBy(
                     'views',
                     $sortData->sortDirection
-                )->paginate(4);
+                )->paginate(8);
         }
 
         return view('sites.productsCategory', [
@@ -79,12 +75,12 @@ class HomeController extends Controller
             $products = Product::orderBy(
                 $sortData->sortBy,
                 $sortData->sortDirection
-            )->paginate(4);
+            )->paginate(8);
         } catch (\Throwable $err) {
             $products = Product::orderBy(
                 'views',
                 $sortData->sortDirection
-            )->paginate(4);
+            )->paginate(8);
         }
 
         $categories = Category::all();
@@ -108,11 +104,44 @@ class HomeController extends Controller
 
         $product = Product::find($id);
 
+        $productsCategory = Product::where('category_id', $product->category_id)->paginate(8);
+
         return view('sites.detailProduct', [
             'categories' => $categories,
             'product' => $product,
+            'productsCategory' => $productsCategory,
             'comments' => $comments,
             'user' => $user,
+        ]);
+    }
+
+    public function about()
+    {
+        $user = Auth::user();
+        $categories = Category::all();
+        return view('sites.about', [
+            'user' => $user,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function contact()
+    {
+        $user = Auth::user();
+        $categories = Category::all();
+        return view('sites.contact', [
+            'user' => $user,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function feedback()
+    {
+        $user = Auth::user();
+        $categories = Category::all();
+        return view('sites.feedback', [
+            'user' => $user,
+            'categories' => $categories,
         ]);
     }
 

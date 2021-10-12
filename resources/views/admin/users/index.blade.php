@@ -41,22 +41,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($users as $usr)
                         <tr>
                             <th scope="row">
                                 <input class="form-check-input" type="checkbox" value="">
                             </th>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td><img src="{{$user->image}}" style="border-radius: 50%; width:60px;" /></td>
-                            <td>{{ $user->role }}</td>
+                            <td>{{ $usr->id }}</td>
+                            <td>{{ $usr->name }}</td>
+                            <td>{{ $usr->email }}</td>
+                            <td><img src="{{$usr->image}}" style="border-radius: 50%; width:60px;" /></td>
+                            <td>{{ $usr->role }}</td>
                             <td>
                                 <div>
-                                    <a href="/admin/users/{{ $user->id }}/edit" class="btn btn-warning">
+                                    <a href="/admin/users/{{ $usr->id }}/edit" class="btn btn-warning">
                                         Sửa
                                     </a>
-                                    <button onclick="openDelete({{ $user->id }}, '{{ $user->name }}')"
+                                    <button onclick="openDelete({{ $usr->id }}, '{{ $usr->name }}')"
                                         class="btn btn-danger">
                                         Xóa
                                     </button>

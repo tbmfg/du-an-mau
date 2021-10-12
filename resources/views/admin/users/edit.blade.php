@@ -10,16 +10,16 @@
 
 @section('content')
     <div class="container pt-3">
-        <form class="py-3 row needs-validation" novalidate action="/admin/users/{{ $user->id }}/update" method="POST">
+        <form class="py-3 row needs-validation" novalidate action="/admin/users/{{ $editUser->id }}/update" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="idInput" class="form-label">Mã tài khoản</label>
-                <input type="text" class="form-control" id="idInput" value="{{ $user->id }}" disabled>
+                <input type="text" class="form-control" id="idInput" value="{{ $editUser->id }}" disabled>
             </div>
             <div class="mb-3">
                 <label for="nameInput" class="form-label">Họ tên</label>
                 <input name="name" type="text" class="form-control" id="nameInput" placeholder="Bùi Văn A"
-                    value="{{ $user->name }}" required>
+                    value="{{ $editUser->name }}" required>
                 <div class="invalid-feedback">
                     Bắt buộc nhập
                 </div>
@@ -30,7 +30,7 @@
             <div class="mb-3">
                 <label for="emailInput" class="form-label">Email</label>
                 <input name="email" type="email" class="form-control" id="emailInput" placeholder="buivana@gmail.com"
-                    value="{{ $user->email }}" required disabled>
+                    value="{{ $editUser->email }}" required disabled>
                 <div class="invalid-feedback">
                     Bắt buộc nhập
                 </div>
@@ -42,7 +42,7 @@
                 <label for="imageInput" class="form-label">Hình ảnh</label>
                 {{-- <input name="image" type="file" class="form-control" id="imageInput" placeholder="image"> --}}
                 <input name="image" type="text" class="form-control" id="inputImage" placeholder="vd"
-                    value="{{ $user->image }}" required>
+                    value="{{ $editUser->image }}" required>
                 <div class="invalid-feedback">
                     Bắt buộc nhập
                 </div>
@@ -75,7 +75,7 @@
                 <label for="activeInput" class="form-label">Trạng thái</label>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="isActiveInput" name="isActive"
-                        {{ $user->isActive == 'guest' ? 'checked' : '' }}>
+                        {{ $editUser->isActive == 'guest' ? 'checked' : '' }}>
                     <label class="form-check-label" for="isActiveInput">Kích hoạt</label>
                 </div>
                 <div class="invalid-feedback">
@@ -89,14 +89,14 @@
                 <label for="roleInput" class="form-label">Role</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="role" value="admin" id="adminRole" required
-                        {{ $user->role == 'admin' ? 'checked' : '' }}>
+                        {{ $editUser->role == 'admin' ? 'checked' : '' }}>
                     <label class="form-check-label" for="adminRole">
                         Admin
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="role" value="guest" id="guest" required
-                        {{ $user->role == 'guest' ? 'checked' : '' }}>
+                        {{ $editUser->role == 'guest' ? 'checked' : '' }}>
                     <label class="form-check-label" for="guest">
                         Khách hàng
                     </label>

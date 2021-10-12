@@ -48,10 +48,12 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
-                                <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
-                                <a class="nav-link" href="#">Giới thiệu</a>
-                                <a class="nav-link" href="#">Liên hệ</a>
-                                <a class="nav-link" href="#">Góp ý</a>
+                                <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" aria-current="page"
+                                    href="/">Trang chủ</a>
+                                <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">Giới
+                                    thiệu</a>
+                                <a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">Liên hệ</a>
+                                <a class="nav-link {{ request()->is('feedback') ? 'active' : '' }}" href="/feedback">Góp ý</a>
                             </div>
                         </div>
                         <form class="d-flex my-2">
@@ -90,11 +92,12 @@
                                                     <span class="text-danger">{{ session()->get('message') }}</span>
                                                 @endif
                                             </div>
-                                            <button class="w-100 btn btn-lg btn-primary" type="submit">Đăng
-                                                nhập</button>
+                                            <button class="w-100 btn btn-lg btn-primary" type="submit">
+                                                Đăng nhập
+                                            </button>
                                         </form>
-                                        <a href="/signup" class="btn btn-outline-secondary w-100">
-                                            Đăng ký
+                                        <a href="/signup" class="btn btn-outline-secondary w-100 mb-3">
+                                            Tạo tài khoản
                                         </a>
                                     </div>
                                 @else
@@ -139,7 +142,7 @@
                     <h5>Website</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2"><a href="/" class="nav-link p-0 text-muted">Trang chủ</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Giới thiệu</a></li>
+                        <li class="nav-item mb-2"><a href="/about" class="nav-link p-0 text-muted">Giới thiệu</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Liên hệ</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Góp ý</a></li>
                     </ul>
