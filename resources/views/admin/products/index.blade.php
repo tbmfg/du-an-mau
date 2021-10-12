@@ -62,9 +62,9 @@
                             <td scope="row text-center">{{ $product->category->name }}</td>
                             <td scope="row">{{ $product->name }}</td>
                             <td scope="row">{{ number_format($product->price) }}</td>
-                            <td scope="row">{{ $product->saleOff }}</td>
+                            <td scope="row">{{ $product->sale_off }}</td>
                             <td scope="row align-middle">
-                                @if ($product->isSpecial)
+                                @if ($product->is_special)
                                     <span class="badge bg-success">Có</span>
                                 @endif
                             <td scope="row">

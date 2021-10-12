@@ -41,11 +41,11 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="inputSale" class="form-label">Giảm giá (%)</label>
-                <input type="number" name="saleOff" class="form-control" id="inputSale" placeholder="vd: 0"
-                    value="{{ $product->saleOff }}">
+                <input type="number" name="sale_off" class="form-control" id="inputSale" placeholder="vd: 0"
+                    value="{{ $product->sale_off }}">
             </div>
-            @if ($errors->has('saleOff'))
-                <span class="text-danger">{{ $errors->first('saleOff') }}</span>
+            @if ($errors->has('sale_off'))
+                <span class="text-danger">{{ $errors->first('sale_off') }}</span>
             @endif
             <div class="col-md-6 mb-3">
                 <label for="inputCategory" class="form-label">Danh mục</label>
@@ -67,15 +67,15 @@
             <div class="col-md-6 mb-3">
                 <label for="typeInput" class="form-label">Loại sản phẩm</label>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" name="isSpecial" type="checkbox" id="specialSwitch"
-                        {{ $product->isSpecial ? 'checked' : '' }}>
+                    <input class="form-check-input" name="is_special" type="checkbox" id="specialSwitch"
+                        {{ $product->is_special ? 'checked' : '' }}>
                     <label class="form-check-label" for="specialSwitch">Đặc biệt</label>
                 </div>
                 <div class="invalid-feedback">
                     Bắt buộc nhập
                 </div>
-                @if ($errors->has('isSpecial'))
-                    <span class="text-danger">{{ $errors->first('isSpecial') }}</span>
+                @if ($errors->has('is_special'))
+                    <span class="text-danger">{{ $errors->first('is_special') }}</span>
                 @endif
             </div>
             <div class="col-md-6 mb-3">
@@ -91,8 +91,8 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="inputDate" class="form-label">Ngày nhập</label>
-                <input type="text" name="createdDate" class="form-control" id="inputDate"
-                    value="{{ $product->createdDate }}" disabled>
+                <input type="text" name="created_date" class="form-control" id="inputDate"
+                    value="{{ $product->created_date }}" disabled>
             </div>
             <div class="col-12 mb-3">
                 <label for="inputDescription" class="form-label">Mô tả</label>

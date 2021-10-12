@@ -28,7 +28,7 @@ class HomeController extends Controller
             'asc'
         )->paginate(8);
         $specialProducts = Product::where(
-            'isSpecial',
+            'is_special',
             1
         )->paginate(4);
 
@@ -96,8 +96,8 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $user = Auth::user();
-        DB::update('UPDATE Products SET views = views + 1 WHERE id = ?', [$id]);
-        $comments = Comment::where('productId', $id)->orderBy(
+        DB::update('UPDATE products SET views = views + 1 WHERE id = ?', [$id]);
+        $comments = Comment::where('product_id', $id)->orderBy(
             'createdAt',
             'desc'
         )->paginate(2);

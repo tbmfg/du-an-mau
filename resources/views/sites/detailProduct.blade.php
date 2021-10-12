@@ -39,7 +39,7 @@
                         <div>
                             <h4 class="mb-4">{{ $product->name }}</h4>
                             <h5 class="text-danger">{{ number_format($product->price) }} đ</h5>
-                            <p>Giảm giá: {{ $product->saleOff }}%</p>
+                            <p>Giảm giá: {{ $product->sale_off }}%</p>
                             <p class="text-">{{ $product->description }}</p>
                         </div>
                     </div>

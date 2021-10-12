@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div>
-                <button type="submit" class="btn btn-primary mb-3">Tạo tài khoản</button>
+                <button type="submit" class="btn btn-primary mb-3">Cập nhật tài khoản</button>
                 <a href="/admin/users" class="btn btn-secondary mb-3">Hủy</a>
             </div>
         </form>

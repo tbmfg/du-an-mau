@@ -71,7 +71,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'saleOff' => 'required',
+            'sale_off' => 'required',
             'image' => 'required',
             'category' => 'required',
             'description' => 'required',
@@ -81,11 +81,11 @@ class ProductController extends Controller
         Product::create([
             'name' => $data['name'],
             'price' => floatval($data['price']),
-            'saleOff' => $data['saleOff'],
+            'sale_off' => $data['sale_off'],
             'image' => $data['image'],
             'category_id' => $data['category'],
-            'isSpecial' => $request['isSpecial'] == 'on' ? 1 : 0,
-            'createdDate' => date('Y-m-d H:i:s'),
+            'is_special' => $request['is_special'] == 'on' ? 1 : 0,
+            'created_date' => date('Y-m-d H:i:s'),
             'views' => 0,
             'description' => $data['description'],
         ]);
@@ -118,7 +118,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'saleOff' => 'required',
+            'sale_off' => 'required',
             'category' => 'required',
             'description' => 'required',
         ]);
@@ -126,11 +126,11 @@ class ProductController extends Controller
         Product::where('id', $id)->update([
             'name' => $data['name'],
             'price' => floatval($data['price']),
-            'saleOff' => $data['saleOff'],
+            'sale_off' => $data['sale_off'],
             'image' => $data['image'],
             'category_id' => $data['category'],
-            'isSpecial' => $request['isSpecial'] == 'on' ? 1 : 0,
-            'createdDate' => date('Y-m-d H:i:s'),
+            'is_special' => $request['is_special'] == 'on' ? 1 : 0,
+            'created_date' => date('Y-m-d H:i:s'),
             'views' => 0,
             'description' => $data['description'],
         ]);
