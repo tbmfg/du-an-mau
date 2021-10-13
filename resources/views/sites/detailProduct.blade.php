@@ -48,7 +48,7 @@
                     <div class="py-3 rounded">
                         @foreach ($comments as $comment)
                             <div class="mb-1">
-                                <strong>{{ $comment->customer->name }} :</strong>
+                                <strong>{{ $comment->owner->name }} :</strong>
                                 <span>{{ $comment->content }}</span>
                                 <small class="text-muted">
                                     - {{ $comment->created_at }}
@@ -56,16 +56,20 @@
                             </div>
                             <hr class="my-2" />
                         @endforeach
+                        {{ $comments->links() }}
 
-                        <div class="row mt-3">
-                            <div class="col-9">
-                                <textarea class="form-control" aria-label="With textarea"
-                                    placeholder="Nhập bình luận..."></textarea>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-primary btn-md col-12">Gửi</button>
-                            </div>
-                        </div>
+                        @if ($user)
+                            <form class="row mt-3 needs-validation" novalidate
+                                action="/products/{{ $product->id }}/comment" method="POST">
+                                @csrf
+                                <div class="col-9">
+                                    <input name="content" class="form-control" placeholder="Nhập bình luận..." />
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-primary btn-md col-12">Gửi</button>
+                                </div>
+                            </form>
+                        @endif
                     </div>
                 </div>
                 <div>

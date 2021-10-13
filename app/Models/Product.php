@@ -33,4 +33,23 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+    public function countComments($id)
+    {
+        $comments = Comment::where('product_id', '=', $id)->get();
+        return count($comments);
+    }
+
+    public function lastestComment($id)
+    {
+        $comments = Comment::where('product_id', '=', $id)->orderBy('created_at', 'desc')->get();
+        return count($comments) ? $comments[0]->created_at : null;
+        return $comments[0]->created_at;
+    }
+
+    public function oldestComment($id)
+    {
+        $comments = Comment::where('product_id', '=', $id)->orderBy('created_at', 'asc')->get();
+        return count($comments) ? $comments[0]->created_at : null;
+    }
 }

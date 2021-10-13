@@ -20,59 +20,29 @@
 @section('content')
     <div class="container-fluid">
         <div class="py-3 d-flex">
-            <button class="btn btn-primary btn-sm me-2">
-                Chọn tất cả
-            </button>
-            <button class="btn btn-primary btn-sm me-2">
-                Bỏ chọn tất cả
-            </button>
-            <button class="btn btn-danger btn-sm me-2 position-relative">Xóa mục đã chọn<nav></nav>
-                <span
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary border border-dark">
-                    13
-                </span>
-            </button>
-            <a class="btn btn-success btn-sm me-2" href="/admin/products/create">
-                Tạo sản phẩm
-            </a>
+            {{-- Sản phẩm: <strong>{{ $product->name }}</strong> --}}
         </div>
         <div class="table-content">
             <table class="table table-bordered table-sm table-hover align-middle header-fixed">
                 <thead>
                     <tr>
-                        <th scope="col"> </th>
-                        <th scope="col">ID <i class="fa fa-fw fa-sort"></i></th>
-                        <th scope="col">Hình ảnh</th>
-                        <th scope="col">Danh mục</th>
-                        <th scope="col">Tên sản phẩm <i class="fa fa-fw fa-sort"></i></th>
-                        <th scope="col">Giá <i class="fa fa-fw fa-sort"></i></th>
-                        <th scope="col">Giảm giá (%) <i class="fa fa-fw fa-sort"></i></th>
-                        <th scope="col">Đặc biệt <i class="fa fa-fw fa-sort"></i></th>
+                        <th scope="col"></i></th>
+                        <th scope="col">Nội dung</i></th>
+                        <th scope="col">Ngày bình luận</i></th>
+                        <th scope="col">Người bình luận</i></th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products as $product)
+                    @foreach ($comments as $comment)
                         <tr>
-                            <th scope="row">
-                                <input class="form-check-input" type="checkbox" value="">
-                            </th>
-                            <td>{{ $product->id }}</td>
-                            <td><img src="{{ $product->image }}" width="120px" /></td>
-                            <td scope="row text-center">{{ $product->category->name }}</td>
-                            <td scope="row">{{ $product->name }}</td>
-                            <td scope="row">{{ number_format($product->price) }}</td>
-                            <td scope="row">{{ $product->sale_off }}</td>
-                            <td scope="row align-middle">
-                                @if ($product->is_special)
-                                    <span class="badge bg-success">Có</span>
-                                @endif
-                            </td>
+                            <td>{{ $comment->id }}</td>
+                            <td scope="row">{{ $comment->content }}</td>
+                            <td scope="row">{{ $comment->created_at }}</td>
+                            <td scope="row">{{ $comment->owner->name }}</td>
                             <td scope="row">
-                                <a href="/admin/products/{{ $product->id }}/edit" class="btn btn-warning">
-                                    Sửa
-                                </a>
-                                <button onclick="openDelete({{ $product->id }}, '{{ $product->name }}')"
+                                <button
+                                    onclick="openDelete({{ $comment->id }}, '{{ $comment->owner->name }}', '{{ $comment->content }}')"
                                     class="btn btn-danger">
                                     Xóa
                                 </button>
@@ -81,7 +51,6 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $products->links() }}
         </div>
 
         <div class="modal fade" id="deletePopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -93,7 +62,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div id="popupProductName"></div>
+                        <div id="popupItemName"></div>
+                        <br />
+                        <div id="">Nội dung: </div>
+                        <div id="popupCommentContent" style=""></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -113,16 +85,17 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
 
-        function openDelete(id, name) {
+        function openDelete(id, name, content) {
             var myModal = new bootstrap.Modal(document.getElementById('deletePopup'), {
                 keyboard: false
             });
 
             var confirmForm = document.getElementById('confirmForm');
-            var popupProductName = document.getElementById('popupProductName');
-            // confirmForm.setAttribute("onClick", `confirmDelete(${id})`)
-            confirmForm.action = `/admin/products/${id}`
-            popupProductName.innerHTML = `Bạn có muốn xóa <strong>${name}</strong> không?`
+            var popupItemName = document.getElementById('popupItemName');
+
+            confirmForm.action = `/admin/comments/${id}`
+            popupItemName.innerHTML = `Bạn có muốn xóa comment của <strong>${name}</strong> không?`
+            popupCommentContent.innerHTML = `<strong>${content}</strong>`;
             myModal.show();
 
             console.log(id, myModal)

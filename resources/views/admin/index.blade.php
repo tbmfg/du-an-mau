@@ -57,7 +57,7 @@
                             </th>
                             <td>{{ $category->id }}</td>
                             <td class="category-name">{{ $category->name }}</td>
-                            <td class="category-product-count">{{ $category->productCount }}</td>
+                            <td class="category-product-count">{{ $category->countProducts }}</td>
                             <td>{{ number_format($category->highestPrice) }}</td>
                             <td>{{ number_format($category->lowestPrice) }}</td>
                             <td>{{ number_format($category->averagePrice) }}</td>

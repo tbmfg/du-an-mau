@@ -137,7 +137,7 @@
                     </li>
                     <li>
                         <a href="/admin/categories"
-                            class="nav-link px-0 text-white {{ request()->is('admin/categories', 'admin/categories/create', 'admin/categories/edit') ? 'active' : '' }}">
+                            class="nav-link px-0 text-white {{ request()->is('admin/categories*') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#table"></use>
                             </svg>
@@ -146,7 +146,7 @@
                     </li>
                     <li>
                         <a href="/admin/products"
-                            class="nav-link px-0 text-white {{ request()->is('admin/products', 'admin/products/create', 'admin/products/edit') ? 'active' : '' }}">
+                            class="nav-link px-0 text-white {{ request()->is('admin/products*') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                             </svg>
@@ -155,7 +155,7 @@
                     </li>
                     <li>
                         <a href="/admin/comments"
-                            class="nav-link px-0 text-white {{ request()->is('admin/comments') ? 'active' : '' }}">
+                            class="nav-link px-0 text-white {{ request()->is('admin/comments*') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid"></use>
                             </svg>
@@ -164,7 +164,7 @@
                     </li>
                     <li>
                         <a href="/admin/users"
-                            class="nav-link px-0 text-white {{ request()->is('admin/users') ? 'active' : '' }}">
+                            class="nav-link px-0 text-white {{ request()->is('admin/users*') ? 'active' : '' }}">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#people-circle"></use>
                             </svg>

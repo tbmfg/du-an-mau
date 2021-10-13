@@ -48,12 +48,19 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
-                                <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" aria-current="page"
-                                    href="/">Trang chủ</a>
-                                <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">Giới
-                                    thiệu</a>
-                                <a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">Liên hệ</a>
-                                <a class="nav-link {{ request()->is('feedback') ? 'active' : '' }}" href="/feedback">Góp ý</a>
+                                <a class="nav-link {{ request()->is('/', 'products*', 'categories*') ? 'active' : '' }}"
+                                    aria-current="page" href="/">
+                                    Trang chủ
+                                </a>
+                                <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">
+                                    Giới thiệu
+                                </a>
+                                <a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">
+                                    Liên hệ
+                                </a>
+                                <a class="nav-link {{ request()->is('feedback') ? 'active' : '' }}" href="/feedback">
+                                    Góp ý
+                                </a>
                             </div>
                         </div>
                         <form class="d-flex my-2">
@@ -108,7 +115,7 @@
                                     <ul class="dropdown-menu mt-2 rounded shadow-lg dropdown-menu-end"
                                         aria-labelledby="dropdownMenuLink">
                                         @if ($user->role == 'admin')
-                                            <li><a class="dropdown-item" href="/admin/products">Quản trị website</a></li>
+                                            <li><a class="dropdown-item" href="/admin">Quản trị website</a></li>
                                         @endif
                                         <li><a class="dropdown-item" href="#">Cập nhật tài khoản</a></li>
                                         <li><a class="dropdown-item" href="/change-password">Đổi mật khẩu</a></li>

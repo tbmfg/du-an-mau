@@ -77,7 +77,7 @@ class ProductController extends Controller
             'description' => 'required',
         ]);
         $data = $request->all();
-        return $data['image'];
+
         Product::create([
             'name' => $data['name'],
             'price' => floatval($data['price']),

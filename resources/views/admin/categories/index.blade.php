@@ -46,7 +46,7 @@
                             </th>
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
-                            <td>{{ $category->productCount }}</td>
+                            <td>{{ $category->countProducts }}</td>
                             <td>
                                 <div>
                                     <a href="/admin/categories/{{ $category->id }}/edit" class="btn btn-warning">

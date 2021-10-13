@@ -15,7 +15,7 @@ class AdminController extends Controller
         $categories = Category::all();
 
         foreach ($categories as $category) {
-            $category->productCount = $category->productCount($category->id);
+            $category->countProducts = $category->countProducts($category->id);
             $category->highestPrice = $category->highestPrice($category->id);
             $category->lowestPrice = $category->lowestPrice($category->id);
             $category->averagePrice = $category->averagePrice($category->id);

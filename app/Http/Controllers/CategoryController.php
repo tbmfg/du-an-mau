@@ -20,7 +20,7 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         foreach ($categories as $category) {
-            $category->productCount = $category->productCount($category->id);
+            $category->countProducts = $category->countProducts($category->id);
         }
 
         return view('admin.categories.index', [
@@ -121,7 +121,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        if ($category->productCount($id)) {
+        if ($category->countProducts($id)) {
             return redirect('/admin/categories')->withSuccess('Không thể xóa danh mục có chứa sản phẩm!');
         }
         $category->delete();

@@ -18,7 +18,7 @@ class Category extends Model
         return $this->hasMany('App\Models\Product');
     }
 
-    public function productCount($id)
+    public function countProducts($id)
     {
         $products = Product::where('category_id', '=', $id)->get();
         return count($products);
@@ -39,6 +39,5 @@ class Category extends Model
     public function averagePrice($id)
     {
         return Product::where('category_id', '=', $id)->avg('price');
-        // return $products[0]->price;
     }
 }

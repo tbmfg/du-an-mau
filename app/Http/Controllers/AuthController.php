@@ -8,6 +8,7 @@ use Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
@@ -30,7 +31,8 @@ class AuthController extends Controller
         $data = $request->only('email', 'password');
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect('/')->withSuccess('Đăng nhập thành công!');
+            return Redirect::back()->withSuccess('Đăng nhập thành công!');
+            // return redirect('/')->withSuccess('Đăng nhập thành công!');
         }
 
         return redirect("signin")->with('message', 'Sai email hoặc mật khẩu!');
@@ -126,7 +128,7 @@ class AuthController extends Controller
     {
         Session::flush();
         Auth::logout();
-
-        return Redirect('')->withSuccess('Đăng xuất thành công!');
+        return Redirect::back()->withSuccess('Đăng xuất thành công!');
+        // return Redirect('')->withSuccess('Đăng xuất thành công!');
     }
 }

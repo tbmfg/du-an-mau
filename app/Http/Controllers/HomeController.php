@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Session;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Product;
+use Illuminate\Support\Facades\Redirect;
 
 class SortData
 {
@@ -99,12 +99,14 @@ class HomeController extends Controller
         DB::update('UPDATE products SET views = views + 1 WHERE id = ?', [$id]);
         $comments = Comment::where('product_id', $id)->orderBy(
             'created_at',
-            'desc'
-        )->paginate(2);
+            'asc'
+        )->paginate(8);
 
         $product = Product::find($id);
 
-        $productsCategory = Product::where('category_id', $product->category_id)->paginate(8);
+        $productsCategory = Product::where('category_id', $product->category_id)
+            ->where('id', '<>', $id)
+            ->take(8)->get();
 
         return view('sites.detailProduct', [
             'categories' => $categories,
@@ -143,6 +145,22 @@ class HomeController extends Controller
             'user' => $user,
             'categories' => $categories,
         ]);
+    }
+
+    public function saveComment(Request $request, $id)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'content' => 'required',
+        ]);
+        $data = $request->all();
+        Comment::create([
+            'content' => $data['content'],
+            'user_id' => $user->id,
+            'product_id' => $id,
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+        return Redirect::back()->withSuccess('Gửi đánh giá thành công!');
     }
 
     public function getSortData(Request $request)
