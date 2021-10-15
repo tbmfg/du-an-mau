@@ -94,10 +94,12 @@
                             </div>
                         @endforeach
                     </div>
-                    <a class="btn btn-primary btn m-auto mt-4"
-                        href="/categories/{{ $productsCategory[0]->category_id }}">
-                        Xem thêm
-                    </a>
+                    @if (count($productsCategory))
+                        <a class="btn btn-primary btn m-auto mt-4"
+                            href="/categories/{{ $productsCategory[0]->category_id }}">
+                            Xem thêm
+                        </a>
+                    @endif
                 </div>
             </div>
             <div class="col">
